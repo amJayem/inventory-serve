@@ -4,6 +4,12 @@ const { ObjectId } = mongoose.Schema.Types
 
 const brandSchema = mongoose.Schema(
   {
+    products: [
+      {
+        type: ObjectId,
+        ref: 'Product'
+      }
+    ],
     name: {
       type: String,
       trim: true,

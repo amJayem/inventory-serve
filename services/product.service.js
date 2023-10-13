@@ -1,7 +1,14 @@
+const Brand = require('../models/Brand')
 const Product = require('../models/Products')
 
 exports.createProductService = async (data) => {
   const result = await Product.create(data)
+
+  // after creating a new product , brand id is updated. will be helpful to populate
+  await Brand.updateOne(
+    { _id: result.brand.id },
+    { $push: { products: result._id } }
+  )
   return result
 }
 
