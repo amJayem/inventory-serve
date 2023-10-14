@@ -1,8 +1,12 @@
 const express = require('express')
+const multer = require('multer')
 
+const uploader = multer({dest: 'images/'})
 const Product = require('../controllers/product.controller')
 
 const router = express.Router()
+
+router.post('/file-upload',uploader.single('image'),Product.fileUpload)
 
 router.route('/').get(Product.getProduct).post(Product.createProduct)
 
