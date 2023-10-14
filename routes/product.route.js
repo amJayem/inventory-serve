@@ -1,8 +1,7 @@
 const express = require('express')
-const multer = require('multer')
-
-const uploader = multer({dest: 'images/'})
+// const uploader = multer({dest: 'images/'})
 const Product = require('../controllers/product.controller')
+const uploader = require('../middleware/uploader')
 
 const router = express.Router()
 
