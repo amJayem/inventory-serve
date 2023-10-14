@@ -10,6 +10,12 @@ const brandSchema = mongoose.Schema(
         ref: 'Product'
       }
     ],
+    suppliers: [
+      {
+        type: ObjectId,
+        ref: 'Supplier'
+      }
+    ],
     name: {
       type: String,
       trim: true,

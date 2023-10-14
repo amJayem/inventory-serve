@@ -1,7 +1,14 @@
+const Brand = require('../models/Brand')
 const Supplier = require('../models/Supplier')
 
 exports.createSupplierService = async (data) => {
   const result = await Supplier.create(data)
+
+  // after creating a new product , brand id is updated. will be helpful to populate
+  await Brand.updateOne(
+    { _id: result.brand.id },
+    { $push: { suppliers: result._id } }
+  )
   return result
 }
 

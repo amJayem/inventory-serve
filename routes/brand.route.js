@@ -8,6 +8,8 @@ router
   .post(brandController.createBrand)
   .get(brandController.getBrand)
 
+router.route('/populate').get(brandController.getBrandPopulateData)
+
 router
   .route('/:id')
   .get(brandController.getBrandById)

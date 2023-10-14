@@ -2,7 +2,8 @@ const {
   createBrandService,
   getBrandService,
   getBrandServiceById,
-  updateBrandService
+  updateBrandService,
+  getPopulateBrandService
 } = require('../services/brand.service')
 
 exports.createBrand = async (req, res, next) => {
@@ -26,6 +27,24 @@ exports.createBrand = async (req, res, next) => {
 exports.getBrand = async (req, res, next) => {
   try {
     const result = await getBrandService(req.body)
+
+    res.status(200).json({
+      status: 'success',
+      message: 'brand data loaded successfully',
+      data: result
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({
+      status: false,
+      error: "couldn't create the brand"
+    })
+  }
+}
+
+exports.getBrandPopulateData = async (req, res, next) => {
+  try {
+    const result = await getPopulateBrandService(req.body)
 
     res.status(200).json({
       status: 'success',
