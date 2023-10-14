@@ -50,9 +50,9 @@ const stockSchema = mongoose.Schema(
       //   message: 'Please provide a valid phone number'
       // }
     },
-    tradeLicenceNumber: {
+    tradeLicenseNumber: {
       type: Number,
-      required: [true, 'Please provide your trade licence number']
+      required: [true, 'Please provide your trade license number']
     },
     presentAddress: {
       type: String,
