@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 // const validator = require('validator')
 const { ObjectId } = mongoose.Schema.Types
+// const validator = require("validator")
 
 const stockSchema = mongoose.Schema(
   {
@@ -14,13 +15,26 @@ const stockSchema = mongoose.Schema(
       type: String,
       trim: true,
       required: [true, 'Please provide a Stock name'],
-      unique: true
+      unique: true,
+      lowercase: true
     },
 
     description: {
       type: String
     },
-
+    unit: {
+      type: String,
+      // required:true,
+      enum: {
+        values: ['kg', 'litre', 'pcs'],
+        message: "unit can't be {VALUE}, must be kg/litre/pcs"
+      }
+    },
+    imgURLs: {
+      type: String
+      // required: true,
+      // validate: [validator.isURL,  'Please provide valid urls']
+    },
     price: {
       type: Number,
       required: true,
@@ -31,6 +45,11 @@ const stockSchema = mongoose.Schema(
       type: Number,
       required: true,
       min: [0, 'Product quantity cant be negative']
+    },
+
+    category: {
+      type: String
+      // required: true,
     },
 
     brand: {
@@ -61,7 +80,11 @@ const stockSchema = mongoose.Schema(
         trim: true,
         required: [true, 'Please provide a Store name'],
         unique: true,
-        lowercase: true
+        lowercase: true,
+        enum: {
+          values: ['dhaka', 'rajshahi', 'khulna'],
+          message: '{VALUE} is not valid store name'
+        }
       },
       id: {
         type: ObjectId,
@@ -80,6 +103,11 @@ const stockSchema = mongoose.Schema(
         type: ObjectId,
         ref: 'Store'
       }
+    },
+    sellCount: {
+      type: Number,
+      default: 0,
+      min: 0
     }
   },
   {
