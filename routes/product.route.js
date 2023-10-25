@@ -1,14 +1,26 @@
 const express = require('express')
 // const uploader = multer({dest: 'images/'})
-const Product = require('../controllers/product.controller')
+const ProductController = require('../controllers/product.controller')
 const uploader = require('../middleware/uploader')
+const authorization = require('../middleware/authorization')
+const verifyToken = require('../middleware/verifyToken')
 
 const router = express.Router()
 
-router.post('/file-upload',uploader.single('image'),Product.fileUpload)
+router.post(
+  '/file-upload',
+  uploader.single('image'),
+  ProductController.fileUpload
+)
 
-router.route('/').get(Product.getProduct).post(Product.createProduct)
+router
+  .route('/')
+  .get(ProductController.getProduct)
+  .post(verifyToken, authorization('admin'), ProductController.createProduct)
 
-router.route('/:id').get(Product.getProductById).patch(Product.updateProduct)
+router
+  .route('/:id')
+  .get(ProductController.getProductById)
+  .patch(ProductController.updateProduct)
 
 module.exports = router
