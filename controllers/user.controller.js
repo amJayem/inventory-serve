@@ -90,3 +90,13 @@ exports.login = async (req, res) => {
     token
   })
 }
+
+exports.getMe = async (req, res) => {
+  const user = await findUserByEmailService(req.user.email)
+  // const user = req.user // get user decoded info
+
+  res.status(200).json({
+    status: 'success',
+    data: user
+  })
+}
